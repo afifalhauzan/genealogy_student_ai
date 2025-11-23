@@ -1,0 +1,32 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./backend:/app
+      - backend_cache:/root/.cache
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build: ./dm_projekakhir
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    volumes:
+      - ./dm_projekakhir:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  backend_cache:
