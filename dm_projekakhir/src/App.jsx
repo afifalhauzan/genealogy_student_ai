@@ -20,7 +20,7 @@ function App() {
     setImage(null) // Reset gambar lama
     try {
       // Ganti URL ini jika backend jalan di port/IP berbeda
-      const apiUrl = 'http://localhost:8000/api/generate-tree'
+      const apiUrl = 'https://genealogyai.duckdns.org/api/generate-tree'
 
       const response = await axios.post(apiUrl, scores)
 
