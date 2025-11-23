@@ -15,18 +15,5 @@ services:
       timeout: 10s
       retries: 3
 
-  frontend:
-    build: ./dm_projekakhir
-    ports:
-      - "5173:5173"
-    environment:
-      - VITE_API_URL=http://localhost:8000
-    volumes:
-      - ./dm_projekakhir:/app
-      - /app/node_modules
-    depends_on:
-      - backend
-    restart: unless-stopped
-
 volumes:
   backend_cache:
