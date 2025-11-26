@@ -20,8 +20,8 @@ function App() {
     setDashboardData(null) // Reset data lama
     try {
       // Ganti URL ini jika backend jalan di port/IP berbeda
-      const apiUrl = 'http://127.0.0.1:8000/api/generate-tree'
-      // const apiUrl = 'https://genealogyai.duckdns.org/api/generate-tree'
+      // const apiUrl = 'http://127.0.0.1:8000/api/generate-tree'
+      const apiUrl = 'https://genealogyai.duckdns.org/api/generate-tree'
 
       const response = await axios.post(apiUrl, scores)
 
