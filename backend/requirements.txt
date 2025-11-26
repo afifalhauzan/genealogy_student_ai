@@ -46,6 +46,7 @@ rich-toolkit==0.16.0
 rignore==0.7.6
 scikit-learn==1.7.2
 scipy==1.16.3
+seaborn==0.13.2
 sentry-sdk==2.45.0
 shellingham==1.5.4
 six==1.17.0

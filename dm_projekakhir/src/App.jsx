@@ -8,8 +8,8 @@ function App() {
   // State untuk menyimpan nilai input user
   const [scores, setScores] = useState({ math: 75, history: 75, physics: 75 })
 
-  // State untuk menyimpan hasil gambar dari server
-  const [image, setImage] = useState(null)
+  // State untuk menyimpan hasil dashboard dari server
+  const [dashboardData, setDashboardData] = useState(null)
 
   // State untuk loading indicator
   const [loading, setLoading] = useState(false)
@@ -17,20 +17,41 @@ function App() {
   // Fungsi untuk mengirim data ke backend
   const handleSubmit = async () => {
     setLoading(true)
-    setImage(null) // Reset gambar lama
+    setDashboardData(null) // Reset data lama
     try {
       // Ganti URL ini jika backend jalan di port/IP berbeda
-      const apiUrl = 'https://genealogyai.duckdns.org/api/generate-tree'
+      const apiUrl = 'http://127.0.0.1:8000/api/generate-tree'
+      // const apiUrl = 'https://genealogyai.duckdns.org/api/generate-tree'
 
       const response = await axios.post(apiUrl, scores)
 
-      // Simpan string base64 gambar ke state
-      if (response.data.status === 'success') {
-        setImage(response.data.image)
+      console.log("Response from server:", response.data)
+      console.log("Response from server:", response.data.insights)
+
+      // Validasi dan simpan hasil dashboard lengkap ke state
+      if (response.data && response.data.status === 'success') {
+        setDashboardData({
+          images: response.data.images || [], // [math_hist, history_hist, physics_hist, dendrogram]
+          insights: response.data.insights || {}
+        })
+      } else {
+        throw new Error('Invalid response format from server')
       }
     } catch (error) {
       console.error("Error:", error)
-      alert("Gagal memproses data. Pastikan backend FastAPI sudah berjalan.")
+      alert("Gagal memproses data. Pastikan backend FastAPI sudah berjalan dan seaborn terinstall.")
+      
+      // Set fallback data untuk debugging
+      setDashboardData({
+        images: [],
+        insights: {
+          profile: "Error: Tidak dapat membuat profil",
+          description: "Silakan cek log backend",
+          strategy: "Restart server backend",
+          recommended_peer: "Tidak Ada",
+          peer_reason: "Analisis gagal"
+        }
+      })
     }
     setLoading(false)
   }
@@ -50,7 +71,7 @@ function App() {
               </div>
               <div>
                 <h1 className="text-3xl sm:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                  Student Genealogy AI
+                  AI Silsilah Siswa
                 </h1>
                 <p className="text-blue-100 text-lg sm:text-xl font-medium">Peta Kekerabatan Gaya Belajar Siswa</p>
               </div>
@@ -189,7 +210,7 @@ function App() {
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
-                        Lihat Posisi Saya di Pohon
+                        Buat Profil Belajar Saya
                       </span>
                     )}
                   </button>
@@ -211,7 +232,7 @@ function App() {
           </div>
 
           {/* Panel Kanan: Output Gambar */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 h-full">
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden h-full">
               <div className="bg-gradient-to-r from-emerald-500 to-teal-600 p-6 text-white">
                 <h2 className="text-2xl font-bold flex items-center gap-3">
@@ -220,42 +241,111 @@ function App() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
-                  Dendogram Hasil Analisis
+                  Laporan Diagnostik Siswa
                 </h2>
-                <p className="text-emerald-100 mt-2">Pohon kekerabatan gaya belajar berdasarkan algoritma clustering</p>
+                <p className="text-emerald-100 mt-2">Analisis pembelajaran komprehensif dan rekomendasi teman sebaya</p>
               </div>
 
-              <div className="p-4">
-                <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center min-h-[500px] lg:min-h-[600px]">
-                  {image ? (
-                    <div className="w-full h-full animate-fade-in">
-                      <div className="bg-white rounded-xl shadow-lg p-4 mb-4">
-                        <img
-                          src={`data:image/png;base64,${image}`}
-                          alt="Dendrogram Result"
-                          className="w-full h-auto rounded-lg shadow-sm"
-                        />
-                      </div>
-                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
-                        <div className="flex items-start gap-4">
-                          <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="font-bold text-green-800 text-lg mb-2">Analisis Berhasil!</h3>
-                            <p className="text-green-700">
-                              Label <span className="font-bold text-red-600 bg-red-50 px-2 py-1 rounded">ANDA</span> pada dendogram menunjukkan posisi kekerabatan gaya belajar Anda terhadap 40 siswa lainnya.
-                            </p>
-                            <div className="mt-3 text-sm text-green-600">
-                              <p>💡 <strong>Tip:</strong> Semakin dekat posisi Anda dengan siswa lain, semakin mirip pola belajar kalian!</p>
+              <div className="p-6  overflow-y-auto">
+                {dashboardData && dashboardData.insights ? (
+                  <div className="space-y-8 animate-fade-in">
+                    {/* Executive Summary */}
+                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-blue-800 text-xl mb-3">🎓 Ringkasan Eksekutif</h3>
+                          <div className="grid md:grid-cols-2 gap-4 text-sm">
+                            <div className="space-y-2">
+                              <p><strong>Profil Pelajar:</strong> <span className="text-blue-700">{dashboardData.insights.profile || 'Menganalisis...'}</span></p>
+                              <p><strong>Observasi:</strong> <span className="text-blue-700">{dashboardData.insights.description || 'Memproses data...'}</span></p>
+                            </div>
+                            <div className="space-y-2">
+                              <p><strong>Strategi:</strong> <span className="text-blue-700">{dashboardData.insights.strategy || 'Membuat rekomendasi...'}</span></p>
+                              <p><strong>Pasangan Teman:</strong> <span className="text-blue-700">{dashboardData.insights.recommended_peer || 'Mengidentifikasi teman...'}</span> ({dashboardData.insights.peer_reason || 'Menghitung kompatibilitas...'})</p>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  ) : (
+
+                    {/* Performance Distribution */}
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        📊 Distribusi Performa (Posisi Anda)
+                      </h3>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {dashboardData.images && dashboardData.images.slice(0, 3).map((img, index) => {
+                          const subjects = ['Matematika', 'Sejarah', 'Fisika'];
+                          const colors = ['bg-blue-50 border-blue-200', 'bg-green-50 border-green-200', 'bg-purple-50 border-purple-200'];
+                          return (
+                            <div key={index} className={`rounded-xl border-2 ${colors[index]} p-3`}>
+                              <h4 className="font-semibold text-center mb-2">{subjects[index]}</h4>
+                              <img
+                                src={`data:image/png;base64,${img}`}
+                                alt={`${subjects[index]} Distribution`}
+                                className="w-full h-auto rounded-lg shadow-sm"
+                              />
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Cognitive Genealogy */}
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        🧬 Silsilah Kognitif (Cara Anda Berpikir)
+                      </h3>
+                      <div className="bg-gray-50 rounded-xl p-4">
+                        <p className="text-sm text-gray-600 mb-4 italic">
+                          Pohon ini mengelompokkan siswa berdasarkan "Kesamaan Gaya Belajar". Siswa pada cabang yang sama memproses informasi dengan cara yang serupa.
+                        </p>
+                        {dashboardData.images && dashboardData.images[3] && (
+                          <div className="bg-white rounded-lg shadow-lg p-4">
+                            <img
+                              src={`data:image/png;base64,${dashboardData.images[3]}`}
+                              alt="Cognitive Genealogy Tree"
+                              className="w-full h-auto rounded-lg"
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Success Message */}
+                    <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="font-bold text-green-800 text-lg mb-2">✅ Analisis Selesai!</h3>
+                          <p className="text-green-700">
+                            Profil pembelajaran komprehensif Anda telah dibuat menggunakan algoritma machine learning canggih. 
+                            Label <span className="font-bold text-red-600 bg-red-50 px-2 py-1 rounded">ANDA</span> menunjukkan posisi Anda 
+                            relatif terhadap siswa lain dalam pohon silsilah kognitif.
+                          </p>
+                          <div className="mt-3 text-sm text-green-600">
+                            <p>💡 <strong>Tips Interpretasi:</strong></p>
+                            <ul className="list-disc list-inside mt-1 space-y-1">
+                              <li>Cabang yang lebih dekat = gaya belajar yang lebih mirip</li>
+                              <li>Grafik distribusi menunjukkan peringkat Anda vs teman sekelas</li>
+                              <li>Profil pembelajaran Anda menyarankan strategi belajar optimal</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl border-2 border-dashed border-gray-200 flex items-center justify-center min-h-[500px] lg:min-h-[600px]">
                     <div className="text-center text-gray-400 p-8 max-w-md">
                       {loading ? (
                         <div className="flex flex-col items-center space-y-6">
@@ -266,8 +356,8 @@ function App() {
                             </div>
                           </div>
                           <div className="space-y-2">
-                            <p className="text-lg font-semibold text-indigo-600">Sedang menganalisis data...</p>
-                            <p className="text-sm text-gray-500">Menghitung jarak euclidean & membuat pohon hierarki</p>
+                            <p className="text-lg font-semibold text-indigo-600">Membuat laporan komprehensif...</p>
+                            <p className="text-sm text-gray-500">Menjalankan algoritma clustering & membuat visualisasi</p>
                           </div>
                           <div className="flex space-x-1">
                             <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{animationDelay: '0ms'}}></div>
@@ -283,10 +373,16 @@ function App() {
                             </svg>
                           </div>
                           <div className="space-y-3">
-                            <h3 className="text-xl font-semibold text-gray-600">Dendogram akan muncul di sini</h3>
+                            <h3 className="text-xl font-semibold text-gray-600">Dashboard Analitik Lanjutan</h3>
                             <p className="text-gray-500 leading-relaxed">
-                              Masukkan nilai Anda di panel sebelah kiri, lalu klik tombol <strong>"Lihat Posisi Saya di Pohon"</strong> untuk melihat analisis AI.
+                              Masukkan nilai Anda dan klik <strong>"Buat Profil Belajar Saya"</strong> untuk menerima:
                             </p>
+                            <ul className="text-left text-sm text-gray-600 space-y-1">
+                              <li>• Analisis distribusi performa</li>
+                              <li>• Pohon silsilah kognitif</li>
+                              <li>• Profil gaya belajar</li>
+                              <li>• Rekomendasi teman sebaya</li>
+                            </ul>
                           </div>
                           <div className="grid grid-cols-3 gap-2 mt-6">
                             <div className="h-2 bg-gradient-to-r from-blue-200 to-blue-300 rounded-full animate-pulse"></div>
@@ -296,8 +392,8 @@ function App() {
                         </div>
                       )}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -308,7 +404,7 @@ function App() {
         <div className="mt-12 text-center">
           <div className="bg-white p-8">
               <p className="text-gray-500 text-sm">
-                © 2025 Student Genealogy AI • Dikembangkan untuk analisis pola belajar siswa
+                © 2025 AI Silsilah Siswa • Dikembangkan untuk analisis pola belajar siswa
               </p>
             </div>
           </div>
