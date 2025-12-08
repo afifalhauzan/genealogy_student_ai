@@ -62,15 +62,15 @@ function App() {
         
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white p-8 sm:p-12 rounded-3xl shadow-2xl backdrop-blur-sm">
+          <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 text-white p-4 sm:p-6 rounded-3xl shadow-2xl backdrop-blur-sm">
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <div className="w-16 h-16 sm:w-20 sm:h-20 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                 <svg className="w-8 h-8 sm:w-10 sm:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <div>
-                <h1 className="text-3xl sm:text-5xl font-bold mb-2 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+              <div className="text-left">
+                <h1 className="text-3xl sm:text-4xl font-bold mb-2 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
                   AI Silsilah Siswa
                 </h1>
                 <p className="text-blue-100 text-lg sm:text-xl font-medium">Peta Kekerabatan Gaya Belajar Siswa</p>
@@ -93,7 +93,7 @@ function App() {
                   </div>
                   Masukkan Nilai Anda
                 </h2>
-                <p className="text-indigo-100 mt-2">Atur slider untuk memasukkan nilai di setiap mata pelajaran</p>
+                <p className="text-left text-indigo-100 mt-2">Atur slider untuk memasukkan nilai di setiap mata pelajaran</p>
               </div>
               
               <div className="p-8 space-y-8">
@@ -106,7 +106,7 @@ function App() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <div>
+                      <div className="text-left">
                         <label className="font-semibold text-gray-800 text-lg">Matematika</label>
                         <p className="text-sm text-gray-600">Kemampuan Logika & Perhitungan</p>
                       </div>
@@ -164,7 +164,7 @@ function App() {
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                       </div>
-                      <div>
+                      <div className="text-left">
                         <label className="font-semibold text-gray-800 text-lg">Sejarah</label>
                         <p className="text-sm text-gray-600">Kemampuan Hafalan & Memori</p>
                       </div>
@@ -217,12 +217,12 @@ function App() {
                 <div className="group">
                   <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white shadow-lg">
+                      <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white shadow-lg">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                       </div>
-                      <div>
+                      <div className="text-left">
                         <label className="font-semibold text-gray-800 text-lg">Fisika</label>
                         <p className="text-sm text-gray-600">Kemampuan Analisis & Konsep</p>
                       </div>
@@ -237,7 +237,7 @@ function App() {
                           const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
                           setScores({ ...scores, physics: value });
                         }}
-                        className="text-3xl font-bold text-purple-600 bg-transparent border-none outline-none text-right w-16"
+                        className="text-3xl font-bold text-red-600 bg-transparent border-none outline-none text-right w-16"
                       />
                       <p className="text-xs text-gray-500">/ 100</p>
                     </div>
@@ -247,9 +247,9 @@ function App() {
                       <input
                         type="range" min="0" max="100" value={scores.physics}
                         onChange={(e) => setScores({ ...scores, physics: parseInt(e.target.value) })}
-                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600 hover:accent-purple-700 transition-all"
+                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600 hover:accent-red-700 transition-all"
                         style={{
-                          background: `linear-gradient(to right, #8B5CF6 0%, #8B5CF6 ${scores.physics}%, #E5E7EB ${scores.physics}%, #E5E7EB 100%)`
+                          background: `linear-gradient(to right, #EF4444 0%, #EF4444 ${scores.physics}%, #E5E7EB ${scores.physics}%, #E5E7EB 100%)`
                         }}
                       />
                     </div>
@@ -264,7 +264,7 @@ function App() {
                           const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
                           setScores({ ...scores, physics: value });
                         }}
-                        className="w-20 px-2 py-1 border border-purple-300 rounded-md text-center text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        className="w-20 px-2 py-1 border border-red-200 rounded-md text-center text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                         placeholder="0-100"
                       />
                     </div>
@@ -350,31 +350,72 @@ function App() {
                   </div>
                   Laporan Diagnostik Siswa
                 </h2>
-                <p className="text-emerald-100 mt-2">Analisis pembelajaran komprehensif dan rekomendasi teman sebaya</p>
+                <p className="text-left text-emerald-100 mt-2">Analisis pembelajaran komprehensif dan rekomendasi teman sebaya</p>
               </div>
 
               <div className="p-6  overflow-y-auto">
                 {dashboardData && dashboardData.insights ? (
                   <div className="space-y-8 animate-fade-in">
                     {/* Executive Summary */}
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
+                    <div className="space-y-6">
+                      {/* <div className="flex items-center gap-3 mb-4">
+                        <h3 className="font-bold text-gray-800 text-2xl">Ringkasan Eksekutif</h3>
+                      </div> */}
+                      
+                      <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-4">
+                        {/* Profil Pelajar Card */}
+                        <div className="flex flex-col bg-gradient-to-br from-blue-50/20 to-blue-100 border border-blue-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                              </svg>
+                            </div>
+                            <h4 className="font-bold text-blue-800 text-md">Profil Pelajar</h4>
+                          </div>
+                          <p className="text-blue-700 text-xl font-bold leading-relaxed">{dashboardData.insights.profile || 'Menganalisis...'}</p>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-bold text-blue-800 text-xl mb-3">🎓 Ringkasan Eksekutif</h3>
-                          <div className="grid md:grid-cols-2 gap-4 text-sm">
-                            <div className="space-y-2">
-                              <p><strong>Profil Pelajar:</strong> <span className="text-blue-700">{dashboardData.insights.profile || 'Menganalisis...'}</span></p>
-                              <p><strong>Observasi:</strong> <span className="text-blue-700">{dashboardData.insights.description || 'Memproses data...'}</span></p>
+
+                        {/* Observasi Card */}
+                        <div className="bg-gradient-to-br from-green-50/20 to-green-100 border border-green-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                              </svg>
                             </div>
-                            <div className="space-y-2">
-                              <p><strong>Strategi:</strong> <span className="text-blue-700">{dashboardData.insights.strategy || 'Membuat rekomendasi...'}</span></p>
-                              <p><strong>Pasangan Teman:</strong> <span className="text-blue-700">{dashboardData.insights.recommended_peer || 'Mengidentifikasi teman...'}</span> ({dashboardData.insights.peer_reason || 'Menghitung kompatibilitas...'})</p>
+                            <h4 className="font-bold text-green-800 text-md">Observasi</h4>
+                          </div>
+                          <p className="text-green-700 text-sm leading-relaxed">{dashboardData.insights.description || 'Memproses data...'}</p>
+                        </div>
+
+                        {/* Strategi Card */}
+                        <div className="bg-gradient-to-br from-purple-50/20 to-purple-100 border border-purple-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                              </svg>
                             </div>
+                            <h4 className="font-bold text-purple-800 text-md">Strategi</h4>
+                          </div>
+                          <p className="text-purple-700 text-sm leading-relaxed">{dashboardData.insights.strategy || 'Membuat rekomendasi...'}</p>
+                        </div>
+
+                        {/* Pasangan Teman Card */}
+                        <div className="bg-gradient-to-br from-sky-50/20 to-sky-100 border border-sky-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="w-8 h-8 bg-sky-500 rounded-lg flex items-center justify-center">
+                              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                              </svg>
+                            </div>
+                            <h4 className="font-bold text-sky-800 text-md">Pasangan Teman</h4>
+                          </div>
+                          <div className="space-y-2">
+                            <p className="text-sky-700 text-md font-medium">{dashboardData.insights.recommended_peer || 'Mengidentifikasi teman...'}</p>
+                            <p className="text-sky-600 text-sm leading-relaxed">{dashboardData.insights.peer_reason || 'Menghitung kompatibilitas...'}</p>
                           </div>
                         </div>
                       </div>
@@ -388,7 +429,7 @@ function App() {
                       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {dashboardData.images && dashboardData.images.slice(0, 3).map((img, index) => {
                           const subjects = ['Matematika', 'Sejarah', 'Fisika'];
-                          const colors = ['bg-blue-50 border-blue-200', 'bg-green-50 border-green-200', 'bg-purple-50 border-purple-200'];
+                          const colors = ['bg-blue-50 border-blue-200', 'bg-green-50 border-green-200', 'bg-red-50/60 border-red-100'];
                           return (
                             <div key={index} className={`rounded-xl border-2 ${colors[index]} p-3`}>
                               <h4 className="font-semibold text-center mb-2">{subjects[index]}</h4>
