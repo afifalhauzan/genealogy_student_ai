@@ -112,19 +112,46 @@ function App() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-3xl font-bold text-blue-600">{scores.math}</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={scores.math}
+                        onChange={(e) => {
+                          const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                          setScores({ ...scores, math: value });
+                        }}
+                        className="text-3xl font-bold text-blue-600 bg-transparent border-none outline-none text-right w-16"
+                      />
                       <p className="text-xs text-gray-500">/ 100</p>
                     </div>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="range" min="0" max="100" value={scores.math}
-                      onChange={(e) => setScores({ ...scores, math: parseInt(e.target.value) })}
-                      className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all"
-                      style={{
-                        background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${scores.math}%, #E5E7EB ${scores.math}%, #E5E7EB 100%)`
-                      }}
-                    />
+                  <div className="space-y-3">
+                    <div className="relative">
+                      <input
+                        type="range" min="0" max="100" value={scores.math}
+                        onChange={(e) => setScores({ ...scores, math: parseInt(e.target.value) })}
+                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 hover:accent-blue-700 transition-all"
+                        style={{
+                          background: `linear-gradient(to right, #3B82F6 0%, #3B82F6 ${scores.math}%, #E5E7EB ${scores.math}%, #E5E7EB 100%)`
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600">Atau ketik nilai:</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={scores.math}
+                        onChange={(e) => {
+                          const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                          setScores({ ...scores, math: value });
+                        }}
+                        className="w-20 px-2 py-1 border border-blue-300 rounded-md text-center text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="0-100"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -143,19 +170,46 @@ function App() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-3xl font-bold text-green-600">{scores.history}</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={scores.history}
+                        onChange={(e) => {
+                          const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                          setScores({ ...scores, history: value });
+                        }}
+                        className="text-3xl font-bold text-green-600 bg-transparent border-none outline-none text-right w-16"
+                      />
                       <p className="text-xs text-gray-500">/ 100</p>
                     </div>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="range" min="0" max="100" value={scores.history}
-                      onChange={(e) => setScores({ ...scores, history: parseInt(e.target.value) })}
-                      className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600 hover:accent-green-700 transition-all"
-                      style={{
-                        background: `linear-gradient(to right, #10B981 0%, #10B981 ${scores.history}%, #E5E7EB ${scores.history}%, #E5E7EB 100%)`
-                      }}
-                    />
+                  <div className="space-y-3">
+                    <div className="relative">
+                      <input
+                        type="range" min="0" max="100" value={scores.history}
+                        onChange={(e) => setScores({ ...scores, history: parseInt(e.target.value) })}
+                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600 hover:accent-green-700 transition-all"
+                        style={{
+                          background: `linear-gradient(to right, #10B981 0%, #10B981 ${scores.history}%, #E5E7EB ${scores.history}%, #E5E7EB 100%)`
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600">Atau ketik nilai:</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={scores.history}
+                        onChange={(e) => {
+                          const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                          setScores({ ...scores, history: value });
+                        }}
+                        className="w-20 px-2 py-1 border border-green-300 rounded-md text-center text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                        placeholder="0-100"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -174,19 +228,46 @@ function App() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <span className="text-3xl font-bold text-purple-600">{scores.physics}</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={scores.physics}
+                        onChange={(e) => {
+                          const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                          setScores({ ...scores, physics: value });
+                        }}
+                        className="text-3xl font-bold text-purple-600 bg-transparent border-none outline-none text-right w-16"
+                      />
                       <p className="text-xs text-gray-500">/ 100</p>
                     </div>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="range" min="0" max="100" value={scores.physics}
-                      onChange={(e) => setScores({ ...scores, physics: parseInt(e.target.value) })}
-                      className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600 hover:accent-purple-700 transition-all"
-                      style={{
-                        background: `linear-gradient(to right, #8B5CF6 0%, #8B5CF6 ${scores.physics}%, #E5E7EB ${scores.physics}%, #E5E7EB 100%)`
-                      }}
-                    />
+                  <div className="space-y-3">
+                    <div className="relative">
+                      <input
+                        type="range" min="0" max="100" value={scores.physics}
+                        onChange={(e) => setScores({ ...scores, physics: parseInt(e.target.value) })}
+                        className="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-purple-600 hover:accent-purple-700 transition-all"
+                        style={{
+                          background: `linear-gradient(to right, #8B5CF6 0%, #8B5CF6 ${scores.physics}%, #E5E7EB ${scores.physics}%, #E5E7EB 100%)`
+                        }}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-600">Atau ketik nilai:</span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={scores.physics}
+                        onChange={(e) => {
+                          const value = Math.min(100, Math.max(0, parseInt(e.target.value) || 0));
+                          setScores({ ...scores, physics: value });
+                        }}
+                        className="w-20 px-2 py-1 border border-purple-300 rounded-md text-center text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        placeholder="0-100"
+                      />
+                    </div>
                   </div>
                 </div>
 
