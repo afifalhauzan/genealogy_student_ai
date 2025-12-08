@@ -511,7 +511,7 @@ function App() {
         <div className="mt-12 text-center">
           <div className="bg-white p-8">
               <p className="text-gray-500 text-sm">
-                © 2025 AI Silsilah Siswa • Dikembangkan untuk analisis pola belajar siswa
+                © 2025 AI Silsilah Siswa • Oleh Evida Nur Churin`in, Afiif Al Hauzaan Alfian, Anisah Khansa Zhafirah, Auliyaa Zulfa • Asosiasi dengan Fakultas Ilmu Komputer Universitas Brawijaya
               </p>
             </div>
           </div>
