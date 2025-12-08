@@ -94,14 +94,18 @@ def get_teacher_insights(user_scores, df_combined, clusters):
     gap = scores[strongest_subject] - scores[weakest_subject]
 
     if gap > 30:
-        profile = "Spesialis (Profil Lancip)"
-        desc = f"Asimetri tinggi terdeteksi. Siswa unggul dalam {strongest_subject} tetapi berisiko tertinggal dalam {weakest_subject}."
+        profile = "The Specialist"
+        desc = (
+            f"Anda sangat unggul pada mata pelajaran {strongest_subject}, "
+            f"namun masih perlu meningkatkan kemampuan di {weakest_subject}. "
+            "Perbedaan kemampuan Anda cukup besar sehingga terlihat jelas kecenderungan belajar tertentu."
+        )
     elif gap < 15:
-        profile = "Generalis (Seimbang)"
-        desc = "Performa konsisten di semua domain kognitif."
-    else:
-        profile = "Pelajar Condong"
-        desc = f"Menunjukkan preferensi kognitif yang jelas untuk {strongest_subject}."
+        profile = "The Generalist"
+        desc = (
+            "Nilai Anda cukup merata di semua mata pelajaran. "
+            "Ini menunjukkan bahwa Anda memiliki gaya belajar yang seimbang."
+        )
 
     # Peer matching logic
     user_cluster = clusters[-1] 

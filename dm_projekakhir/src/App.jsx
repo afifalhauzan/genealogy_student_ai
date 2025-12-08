@@ -307,6 +307,32 @@ function App() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Dataset Section */}
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 mt-4 border border-green-100">
+                    <div className="flex flex-col items-center justify-center">
+                      <div className="flex items-center gap-3 text-green-800">
+                        <svg className="w-10 h-10 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <div className="text-sm text-left">
+                          <p className="font-medium">Ingin melihat data siswa yang digunakan?</p>
+                          <p className="text-green-700 mt-1">Lihat dataset lengkap dengan 40 sampel data siswa</p>
+                        </div>
+                      </div>
+                      <a
+                        href="https://docs.google.com/spreadsheets/d/1gHzbcyDQPe8Mcw7Q6H_s6_DByPYzRqgXHeLKY-8HqcE/edit?usp=sharing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-green-600 w-full mt-2 text-center hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-2 shadow-sm hover:shadow-md"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                        Dataset Siswa
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
