@@ -83,7 +83,12 @@ def plot_score_distribution(data, user_value, subject_name, color):
 
 # --- 3. HELPER: INSIGHT ENGINE ---
 def get_teacher_insights(user_scores, df_combined, clusters):
-    scores = {'Matematika': user_scores.math, 'Sejarah': user_scores.history, 'Fisika': user_scores.physics}
+    scores = {
+        'Math': user_scores.math,
+        'History': user_scores.history,
+        'Physics': user_scores.physics
+    }
+
     sorted_scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
     strongest_subject = sorted_scores[0][0]
     weakest_subject = sorted_scores[-1][0]
@@ -93,6 +98,7 @@ def get_teacher_insights(user_scores, df_combined, clusters):
 
     gap = scores[strongest_subject] - scores[weakest_subject]
 
+    # --- COPYWRITING BARU ---
     if gap > 30:
         profile = "The Specialist"
         desc = (
@@ -106,36 +112,46 @@ def get_teacher_insights(user_scores, df_combined, clusters):
             "Nilai Anda cukup merata di semua mata pelajaran. "
             "Ini menunjukkan bahwa Anda memiliki gaya belajar yang seimbang."
         )
+    else:
+        profile = "The Leaning Learner"
+        desc = (
+            f"Anda menunjukkan kecenderungan kuat pada mata pelajaran {strongest_subject}. "
+            f"Tantangan terbesar Anda saat ini berada pada {weakest_subject}, "
+            "tetapi hal ini masih bisa ditingkatkan dengan strategi belajar yang tepat."
+        )
 
-    # Peer matching logic
-    user_cluster = clusters[-1] 
+    # Strategi baru yang lebih mudah dipahami
+    strategy = (
+        f"Manfaatkan kekuatan Anda di mata pelajaran {strongest_subject} "
+        f"untuk membantu memahami materi {weakest_subject}. "
+        "Gunakan pola, logika, dan konsep yang Anda kuasai untuk mempercepat proses belajar."
+    )
+
+    # Peer Matching (copywriting baru)
+    user_cluster = clusters[-1]
     candidates = df_combined.iloc[:-1].copy()
     candidates['cluster'] = clusters[:-1]
     candidates = candidates[candidates['cluster'] != user_cluster]
-    
-    if len(candidates) > 0:
-        if weakest_subject == 'Matematika':
-            mentor = candidates.sort_values(by='math_score', ascending=False).iloc[0]
-            score_column = 'math_score'
-        elif weakest_subject == 'Sejarah':
-            mentor = candidates.sort_values(by='history_score', ascending=False).iloc[0]
-            score_column = 'history_score'
-        else:  # Fisika
-            mentor = candidates.sort_values(by='physics_score', ascending=False).iloc[0]
-            score_column = 'physics_score'
-        
-        recommended_peer = f"Siswa #{mentor.name}"
-        peer_reason = f"Kuat dalam {weakest_subject} ({mentor[score_column]}) & Gaya Belajar Berbeda"
+
+    if weakest_subject == 'Math':
+        mentor = candidates.sort_values(by='math_score', ascending=False).iloc[0]
+    elif weakest_subject == 'History':
+        mentor = candidates.sort_values(by='history_score', ascending=False).iloc[0]
     else:
-        recommended_peer = "Tidak ada teman yang cocok"
-        peer_reason = "Semua siswa dalam kluster belajar yang sama"
+        mentor = candidates.sort_values(by='physics_score', ascending=False).iloc[0]
+
+    peer_text = (
+        f"Sistem merekomendasikan Anda untuk belajar bersama Student #{mentor.name} "
+        f"karena ia memiliki kekuatan pada mata pelajaran {weakest_subject} "
+        "dan bisa menjadi pendamping belajar yang efektif."
+    )
 
     return {
         "profile": profile,
         "description": desc,
-        "strategy": f"Manfaatkan konsep {strongest_subject} untuk memperkuat pembelajaran {weakest_subject}.",
-        "recommended_peer": recommended_peer,
-        "peer_reason": peer_reason
+        "strategy": strategy,
+        "recommended_peer": f"Student #{mentor.name}",
+        "peer_reason": peer_text
     }
 
 # --- 4. MAIN GENERATOR ---
